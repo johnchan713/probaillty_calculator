@@ -461,6 +461,216 @@ void handle_factorial() {
     std::cout << "  " << n << "! = " << result << "\n";
 }
 
+// Function to handle Weibull distribution
+void handle_weibull() {
+    display_header(WeibullDistribution::get_name());
+    std::cout << WeibullDistribution::get_description() << "\n\n";
+
+    double k = get_double_input("Enter k (shape parameter, e.g., 2.0): ");
+    double lambda = get_double_input("Enter λ (lambda - scale/characteristic life, e.g., 1000 hours): ");
+
+    std::cout << "\nChoose calculation type:\n";
+    std::cout << "  1. PDF at a specific point\n";
+    std::cout << "  2. CDF (cumulative probability X <= x)\n";
+    std::cout << "  3. Area between two points\n";
+    int choice = get_int_input("Enter choice: ");
+
+    std::cout << std::fixed << std::setprecision(8);
+
+    if (choice == 1) {
+        double x = get_double_input("Enter x (time/value): ");
+        double pdf = WeibullDistribution::pdf(x, k, lambda);
+        std::cout << "\nResult:\n";
+        std::cout << "  PDF at x = " << x << " is " << pdf << "\n";
+    } else if (choice == 2) {
+        double x = get_double_input("Enter x: ");
+        double cdf = WeibullDistribution::cdf(x, k, lambda);
+        std::cout << "\nResult:\n";
+        std::cout << "  P(X <= " << x << ") = " << cdf << " (cumulative probability)\n";
+    } else if (choice == 3) {
+        double a = get_double_input("Enter lower bound: ");
+        double b = get_double_input("Enter upper bound: ");
+        double area = WeibullDistribution::area_between(a, b, k, lambda);
+        std::cout << "\nResult:\n";
+        std::cout << "  P(" << a << " <= X <= " << b << ") = " << area << "\n";
+    }
+}
+
+// Function to handle Lognormal distribution
+void handle_lognormal() {
+    display_header(LognormalDistribution::get_name());
+    std::cout << LognormalDistribution::get_description() << "\n\n";
+
+    double mu = get_double_input("Enter μ (mu - mean of log(X), e.g., 0.0): ");
+    double sigma = get_double_input("Enter σ (sigma - std dev of log(X), e.g., 1.0): ");
+
+    std::cout << "\nChoose calculation type:\n";
+    std::cout << "  1. PDF at a specific point\n";
+    std::cout << "  2. CDF (cumulative probability X <= x)\n";
+    std::cout << "  3. Area between two points\n";
+    int choice = get_int_input("Enter choice: ");
+
+    std::cout << std::fixed << std::setprecision(8);
+
+    if (choice == 1) {
+        double x = get_double_input("Enter x (must be positive): ");
+        double pdf = LognormalDistribution::pdf(x, mu, sigma);
+        std::cout << "\nResult:\n";
+        std::cout << "  PDF at x = " << x << " is " << pdf << "\n";
+    } else if (choice == 2) {
+        double x = get_double_input("Enter x: ");
+        double cdf = LognormalDistribution::cdf(x, mu, sigma);
+        std::cout << "\nResult:\n";
+        std::cout << "  P(X <= " << x << ") = " << cdf << " (cumulative probability)\n";
+    } else if (choice == 3) {
+        double a = get_double_input("Enter lower bound: ");
+        double b = get_double_input("Enter upper bound: ");
+        double area = LognormalDistribution::area_between(a, b, mu, sigma);
+        std::cout << "\nResult:\n";
+        std::cout << "  P(" << a << " <= X <= " << b << ") = " << area << "\n";
+    }
+}
+
+// Function to handle Cauchy distribution
+void handle_cauchy() {
+    display_header(CauchyDistribution::get_name());
+    std::cout << CauchyDistribution::get_description() << "\n\n";
+
+    double x0 = get_double_input("Enter x₀ (x0 - location parameter/median, e.g., 0.0): ");
+    double gamma = get_double_input("Enter γ (gamma - scale parameter, e.g., 1.0): ");
+
+    std::cout << "\nChoose calculation type:\n";
+    std::cout << "  1. PDF at a specific point\n";
+    std::cout << "  2. CDF (cumulative probability X <= x)\n";
+    std::cout << "  3. Area between two points\n";
+    int choice = get_int_input("Enter choice: ");
+
+    std::cout << std::fixed << std::setprecision(8);
+
+    if (choice == 1) {
+        double x = get_double_input("Enter x: ");
+        double pdf = CauchyDistribution::pdf(x, x0, gamma);
+        std::cout << "\nResult:\n";
+        std::cout << "  PDF at x = " << x << " is " << pdf << "\n";
+    } else if (choice == 2) {
+        double x = get_double_input("Enter x: ");
+        double cdf = CauchyDistribution::cdf(x, x0, gamma);
+        std::cout << "\nResult:\n";
+        std::cout << "  P(X <= " << x << ") = " << cdf << " (cumulative probability)\n";
+    } else if (choice == 3) {
+        double a = get_double_input("Enter lower bound: ");
+        double b = get_double_input("Enter upper bound: ");
+        double area = CauchyDistribution::area_between(a, b, x0, gamma);
+        std::cout << "\nResult:\n";
+        std::cout << "  P(" << a << " <= X <= " << b << ") = " << area << "\n";
+    }
+}
+
+// Function to handle Pareto distribution
+void handle_pareto() {
+    display_header(ParetoDistribution::get_name());
+    std::cout << ParetoDistribution::get_description() << "\n\n";
+
+    double xm = get_double_input("Enter xₘ (xm - minimum value, e.g., 1.0): ");
+    double alpha = get_double_input("Enter α (alpha - shape parameter, e.g., 2.0): ");
+
+    std::cout << "\nChoose calculation type:\n";
+    std::cout << "  1. PDF at a specific point\n";
+    std::cout << "  2. CDF (cumulative probability X <= x)\n";
+    std::cout << "  3. Area between two points\n";
+    int choice = get_int_input("Enter choice: ");
+
+    std::cout << std::fixed << std::setprecision(8);
+
+    if (choice == 1) {
+        double x = get_double_input("Enter x (must be >= xm): ");
+        double pdf = ParetoDistribution::pdf(x, xm, alpha);
+        std::cout << "\nResult:\n";
+        std::cout << "  PDF at x = " << x << " is " << pdf << "\n";
+    } else if (choice == 2) {
+        double x = get_double_input("Enter x: ");
+        double cdf = ParetoDistribution::cdf(x, xm, alpha);
+        std::cout << "\nResult:\n";
+        std::cout << "  P(X <= " << x << ") = " << cdf << " (cumulative probability)\n";
+    } else if (choice == 3) {
+        double a = get_double_input("Enter lower bound: ");
+        double b = get_double_input("Enter upper bound: ");
+        double area = ParetoDistribution::area_between(a, b, xm, alpha);
+        std::cout << "\nResult:\n";
+        std::cout << "  P(" << a << " <= X <= " << b << ") = " << area << "\n";
+    }
+}
+
+// Function to handle Laplace distribution
+void handle_laplace() {
+    display_header(LaplaceDistribution::get_name());
+    std::cout << LaplaceDistribution::get_description() << "\n\n";
+
+    double mu = get_double_input("Enter μ (mu - location/mean, e.g., 0.0): ");
+    double b = get_double_input("Enter b (scale parameter, e.g., 1.0): ");
+
+    std::cout << "\nChoose calculation type:\n";
+    std::cout << "  1. PDF at a specific point\n";
+    std::cout << "  2. CDF (cumulative probability X <= x)\n";
+    std::cout << "  3. Area between two points\n";
+    int choice = get_int_input("Enter choice: ");
+
+    std::cout << std::fixed << std::setprecision(8);
+
+    if (choice == 1) {
+        double x = get_double_input("Enter x: ");
+        double pdf = LaplaceDistribution::pdf(x, mu, b);
+        std::cout << "\nResult:\n";
+        std::cout << "  PDF at x = " << x << " is " << pdf << "\n";
+    } else if (choice == 2) {
+        double x = get_double_input("Enter x: ");
+        double cdf = LaplaceDistribution::cdf(x, mu, b);
+        std::cout << "\nResult:\n";
+        std::cout << "  P(X <= " << x << ") = " << cdf << " (cumulative probability)\n";
+    } else if (choice == 3) {
+        double a = get_double_input("Enter lower bound: ");
+        double b_upper = get_double_input("Enter upper bound: ");
+        double area = LaplaceDistribution::area_between(a, b_upper, mu, b);
+        std::cout << "\nResult:\n";
+        std::cout << "  P(" << a << " <= X <= " << b_upper << ") = " << area << "\n";
+    }
+}
+
+// Function to handle Logistic distribution
+void handle_logistic() {
+    display_header(LogisticDistribution::get_name());
+    std::cout << LogisticDistribution::get_description() << "\n\n";
+
+    double mu = get_double_input("Enter μ (mu - location/mean, e.g., 0.0): ");
+    double s = get_double_input("Enter s (scale parameter, e.g., 1.0): ");
+
+    std::cout << "\nChoose calculation type:\n";
+    std::cout << "  1. PDF at a specific point\n";
+    std::cout << "  2. CDF (cumulative probability X <= x)\n";
+    std::cout << "  3. Area between two points\n";
+    int choice = get_int_input("Enter choice: ");
+
+    std::cout << std::fixed << std::setprecision(8);
+
+    if (choice == 1) {
+        double x = get_double_input("Enter x: ");
+        double pdf = LogisticDistribution::pdf(x, mu, s);
+        std::cout << "\nResult:\n";
+        std::cout << "  PDF at x = " << x << " is " << pdf << "\n";
+    } else if (choice == 2) {
+        double x = get_double_input("Enter x: ");
+        double cdf = LogisticDistribution::cdf(x, mu, s);
+        std::cout << "\nResult:\n";
+        std::cout << "  P(X <= " << x << ") = " << cdf << " (cumulative probability)\n";
+    } else if (choice == 3) {
+        double a = get_double_input("Enter lower bound: ");
+        double b = get_double_input("Enter upper bound: ");
+        double area = LogisticDistribution::area_between(a, b, mu, s);
+        std::cout << "\nResult:\n";
+        std::cout << "  P(" << a << " <= X <= " << b << ") = " << area << "\n";
+    }
+}
+
 // Main menu
 void display_main_menu() {
     std::cout << "\n";
@@ -484,11 +694,17 @@ void display_main_menu() {
     std::cout << " 11. Chi-Square Distribution\n";
     std::cout << " 12. Exponential Distribution\n";
     std::cout << " 13. Beta Distribution\n";
+    std::cout << " 14. Weibull Distribution\n";
+    std::cout << " 15. Lognormal Distribution\n";
+    std::cout << " 16. Cauchy Distribution\n";
+    std::cout << " 17. Pareto Distribution\n";
+    std::cout << " 18. Laplace Distribution\n";
+    std::cout << " 19. Logistic Distribution\n";
     std::cout << "\n";
     std::cout << "═══ SPECIAL FUNCTIONS ═══\n";
-    std::cout << " 14. Combination (nCr)\n";
-    std::cout << " 15. Permutation (nPr)\n";
-    std::cout << " 16. Factorial (n!)\n";
+    std::cout << " 20. Combination (nCr)\n";
+    std::cout << " 21. Permutation (nPr)\n";
+    std::cout << " 22. Factorial (n!)\n";
     std::cout << "\n";
     std::cout << " 0. Exit\n";
     std::cout << "\n";
@@ -542,12 +758,30 @@ int main() {
                 handle_beta();
                 break;
             case 14:
-                handle_combination();
+                handle_weibull();
                 break;
             case 15:
-                handle_permutation();
+                handle_lognormal();
                 break;
             case 16:
+                handle_cauchy();
+                break;
+            case 17:
+                handle_pareto();
+                break;
+            case 18:
+                handle_laplace();
+                break;
+            case 19:
+                handle_logistic();
+                break;
+            case 20:
+                handle_combination();
+                break;
+            case 21:
+                handle_permutation();
+                break;
+            case 22:
                 handle_factorial();
                 break;
             case 0:

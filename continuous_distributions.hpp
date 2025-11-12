@@ -272,4 +272,200 @@ public:
     }
 };
 
+// Weibull Distribution
+class WeibullDistribution {
+public:
+    static std::string get_name() { return "Weibull Distribution"; }
+
+    static std::string get_description() {
+        return "Used for: Reliability analysis, failure rates, and lifetime modeling.\n"
+               "Example: Time-to-failure of mechanical components.\n"
+               "Example: Wind speed distributions in renewable energy.\n"
+               "Example: Product lifetime and warranty analysis.\n"
+               "Parameters: k (shape, k>1 increasing hazard), λ (scale, characteristic life).";
+    }
+
+    static double pdf(double x, double k, double lambda) {
+        if (x < 0.0 || k <= 0.0 || lambda <= 0.0) return 0.0;
+
+        double xk = std::pow(x / lambda, k);
+        return (k / lambda) * std::pow(x / lambda, k - 1.0) * std::exp(-xk);
+    }
+
+    static double cdf(double x, double k, double lambda) {
+        if (x < 0.0) return 0.0;
+        if (k <= 0.0 || lambda <= 0.0) return 0.0;
+
+        return 1.0 - std::exp(-std::pow(x / lambda, k));
+    }
+
+    static double area_between(double a, double b, double k, double lambda) {
+        return cdf(b, k, lambda) - cdf(a, k, lambda);
+    }
+};
+
+// Lognormal Distribution
+class LognormalDistribution {
+public:
+    static std::string get_name() { return "Lognormal Distribution"; }
+
+    static std::string get_description() {
+        return "Used for: Positive variables that are products of many factors.\n"
+               "Example: Stock prices, asset returns, income distributions.\n"
+               "Example: Size of biological organisms, particle sizes.\n"
+               "Example: Time to complete tasks, file sizes.\n"
+               "Parameters: μ (mean of log(X)), σ (std dev of log(X)).";
+    }
+
+    static double pdf(double x, double mu, double sigma) {
+        if (x <= 0.0 || sigma <= 0.0) return 0.0;
+
+        double log_x = std::log(x);
+        double z = (log_x - mu) / sigma;
+        return (1.0 / (x * sigma * std::sqrt(2.0 * M_PI))) *
+               std::exp(-0.5 * z * z);
+    }
+
+    static double cdf(double x, double mu, double sigma) {
+        if (x <= 0.0) return 0.0;
+        if (sigma <= 0.0) return 0.0;
+
+        double log_x = std::log(x);
+        return normal_cdf(log_x, mu, sigma);
+    }
+
+    static double area_between(double a, double b, double mu, double sigma) {
+        return cdf(b, mu, sigma) - cdf(a, mu, sigma);
+    }
+};
+
+// Cauchy Distribution
+class CauchyDistribution {
+public:
+    static std::string get_name() { return "Cauchy Distribution"; }
+
+    static std::string get_description() {
+        return "Used for: Heavy-tailed phenomena, resonance in physics.\n"
+               "Example: Ratio of two normal random variables.\n"
+               "Example: Spectral line shapes in physics.\n"
+               "Example: Modeling outliers and extreme values.\n"
+               "Parameters: x₀ (location/median), γ (scale/half-width at half-maximum).";
+    }
+
+    static double pdf(double x, double x0, double gamma) {
+        if (gamma <= 0.0) return 0.0;
+
+        double z = (x - x0) / gamma;
+        return 1.0 / (M_PI * gamma * (1.0 + z * z));
+    }
+
+    static double cdf(double x, double x0, double gamma) {
+        if (gamma <= 0.0) return 0.0;
+
+        return 0.5 + (1.0 / M_PI) * std::atan((x - x0) / gamma);
+    }
+
+    static double area_between(double a, double b, double x0, double gamma) {
+        return cdf(b, x0, gamma) - cdf(a, x0, gamma);
+    }
+};
+
+// Pareto Distribution
+class ParetoDistribution {
+public:
+    static std::string get_name() { return "Pareto Distribution"; }
+
+    static std::string get_description() {
+        return "Used for: Wealth distribution, 80-20 rule phenomena.\n"
+               "Example: Income distribution (top earners).\n"
+               "Example: City population sizes.\n"
+               "Example: Insurance claims, large losses.\n"
+               "Parameters: xₘ (minimum value), α (shape, controls tail heaviness).";
+    }
+
+    static double pdf(double x, double xm, double alpha) {
+        if (x < xm || xm <= 0.0 || alpha <= 0.0) return 0.0;
+
+        return (alpha * std::pow(xm, alpha)) / std::pow(x, alpha + 1.0);
+    }
+
+    static double cdf(double x, double xm, double alpha) {
+        if (x < xm) return 0.0;
+        if (xm <= 0.0 || alpha <= 0.0) return 0.0;
+
+        return 1.0 - std::pow(xm / x, alpha);
+    }
+
+    static double area_between(double a, double b, double xm, double alpha) {
+        return cdf(b, xm, alpha) - cdf(a, xm, alpha);
+    }
+};
+
+// Laplace Distribution
+class LaplaceDistribution {
+public:
+    static std::string get_name() { return "Laplace Distribution"; }
+
+    static std::string get_description() {
+        return "Used for: Modeling differences, L1 regularization, signal processing.\n"
+               "Example: Financial returns (fatter tails than normal).\n"
+               "Example: Difference between two exponential variables.\n"
+               "Example: Lasso regression (L1 penalty).\n"
+               "Parameters: μ (location/mean/median), b (scale/diversity).";
+    }
+
+    static double pdf(double x, double mu, double b) {
+        if (b <= 0.0) return 0.0;
+
+        return (1.0 / (2.0 * b)) * std::exp(-std::abs(x - mu) / b);
+    }
+
+    static double cdf(double x, double mu, double b) {
+        if (b <= 0.0) return 0.0;
+
+        if (x < mu) {
+            return 0.5 * std::exp((x - mu) / b);
+        } else {
+            return 1.0 - 0.5 * std::exp(-(x - mu) / b);
+        }
+    }
+
+    static double area_between(double a, double b_upper, double mu, double b) {
+        return cdf(b_upper, mu, b) - cdf(a, mu, b);
+    }
+};
+
+// Logistic Distribution
+class LogisticDistribution {
+public:
+    static std::string get_name() { return "Logistic Distribution"; }
+
+    static std::string get_description() {
+        return "Used for: Growth models, logistic regression, neural networks.\n"
+               "Example: Population growth (S-curve).\n"
+               "Example: Adoption of new technology.\n"
+               "Example: Logistic regression classification.\n"
+               "Parameters: μ (location/mean), s (scale, proportional to std dev).";
+    }
+
+    static double pdf(double x, double mu, double s) {
+        if (s <= 0.0) return 0.0;
+
+        double z = (x - mu) / s;
+        double exp_z = std::exp(-z);
+        return exp_z / (s * std::pow(1.0 + exp_z, 2.0));
+    }
+
+    static double cdf(double x, double mu, double s) {
+        if (s <= 0.0) return 0.0;
+
+        double z = (x - mu) / s;
+        return 1.0 / (1.0 + std::exp(-z));
+    }
+
+    static double area_between(double a, double b, double mu, double s) {
+        return cdf(b, mu, s) - cdf(a, mu, s);
+    }
+};
+
 } // namespace ProbCalc

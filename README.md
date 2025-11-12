@@ -4,22 +4,23 @@ A high-performance C++ probability distribution calculator with interactive para
 
 ## Features
 
-- **13 Probability Distributions**: Includes both discrete and continuous distributions
+- **19 Probability Distributions**: Includes both discrete and continuous distributions
 - **Special Functions**: Combination (nCr), Permutation (nPr), and Factorial calculations
 - **Interactive Interface**: User-friendly menu with detailed parameter descriptions
+- **Cumulative Options**: All distributions support CDF (cumulative distribution function)
 - **Low-Latency Performance**: Optimized with template metaprogramming and fast mathematical algorithms
 - **Built-in Documentation**: Each distribution includes usage examples and when to use them
 
 ## Distributions Included
 
-### Discrete Distributions
+### Discrete Distributions (5)
 1. **Binomial Distribution** - Number of successes in fixed trials
 2. **Negative Binomial Distribution** - Number of failures before r successes
 3. **Poisson Distribution** - Number of events in a fixed interval
 4. **Hypergeometric Distribution** - Sampling without replacement
 5. **Geometric Distribution** - Trials until first success
 
-### Continuous Distributions
+### Continuous Distributions (14)
 6. **Normal (Gaussian) Distribution** - Bell curve for naturally occurring data
 7. **Uniform Distribution** - Equal probability across an interval
 8. **Student's t-Distribution** - Small sample hypothesis testing
@@ -28,11 +29,17 @@ A high-performance C++ probability distribution calculator with interactive para
 11. **Chi-Square Distribution** - Goodness-of-fit tests
 12. **Exponential Distribution** - Time between events
 13. **Beta Distribution** - Probabilities and proportions (0 to 1)
+14. **Weibull Distribution** - Reliability analysis and failure rates
+15. **Lognormal Distribution** - Stock prices and multiplicative processes
+16. **Cauchy Distribution** - Heavy-tailed phenomena and physics
+17. **Pareto Distribution** - Wealth distribution and 80-20 rule
+18. **Laplace Distribution** - Financial returns and L1 regularization
+19. **Logistic Distribution** - Growth models and logistic regression
 
-### Special Functions
-14. **Combination (nCr)** - Choose r items from n (order doesn't matter)
-15. **Permutation (nPr)** - Arrange r items from n (order matters)
-16. **Factorial (n!)** - Product of all positive integers up to n
+### Special Functions (3)
+20. **Combination (nCr)** - Choose r items from n (order doesn't matter)
+21. **Permutation (nPr)** - Arrange r items from n (order matters)
+22. **Factorial (n!)** - Product of all positive integers up to n
 
 ## Building the Project
 
@@ -147,6 +154,12 @@ probaillty_calculator/
 - **Chi-Square**: Goodness-of-fit tests, variance testing
 - **Exponential**: Time between events in Poisson process
 - **Beta**: Modeling probabilities and proportions
+- **Weibull**: Reliability analysis, failure rates, wind speed modeling
+- **Lognormal**: Stock prices, income distributions, multiplicative processes
+- **Cauchy**: Heavy-tailed phenomena, ratio of normal variables, physics
+- **Pareto**: Wealth distribution, 80-20 rule, insurance claims
+- **Laplace**: Financial returns (fat tails), signal processing, L1 regularization
+- **Logistic**: Growth models, technology adoption, logistic regression
 
 ## Contributing
 
